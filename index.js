@@ -79,6 +79,13 @@ async function sendMessageToPeople(socket, nomorList, isiPesan) {
 }
 
 async function checkingStatusDevice(socket, nomorList) {
+
+  const currentDay = dayjs().day()
+  if (currentDay === 0 || currentDay === 6) {
+    console.log(`[${dayjs().format('YYYY-MM-DD HH:mm:ss')}] Lewatkan pengecekan di hari libur (Sabtu/Minggu)`)
+    return
+  }
+  
   const deviceStatus = await dbPool("device_status as ds").select("ds.*", "r.room_name").join("rooms as r", "ds.id_room", "r.id_room").orderBy("r.room_name", "asc")
 
   const disconnectedDevices = deviceStatus
