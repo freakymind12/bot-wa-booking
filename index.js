@@ -29,7 +29,7 @@ async function connectToWhatsApp() {
       console.log("WA Bot Active")
 
       // Lakukan sesuatu pada whatsapp disini
-      cron.schedule('*/20 * * * * *', () => {
+      cron.schedule('* * * * *', () => {
         checkingStatusDevice(socket, pic_phone)
       })
 
@@ -85,7 +85,7 @@ async function checkingStatusDevice(socket, nomorList) {
     console.log(`[${dayjs().format('YYYY-MM-DD HH:mm:ss')}] Lewatkan pengecekan di hari libur (Sabtu/Minggu)`)
     return
   }
-  
+
   const deviceStatus = await dbPool("device_status as ds").select("ds.*", "r.room_name").join("rooms as r", "ds.id_room", "r.id_room").orderBy("r.room_name", "asc")
 
   const disconnectedDevices = deviceStatus
