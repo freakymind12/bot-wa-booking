@@ -1,0 +1,13 @@
+services:
+  bot-wa:
+    image: node:20-alpine
+    container_name: bot-wa-booking
+    restart: always
+    working_dir: /bot-wa
+    volumes:
+      - ./:/bot-wa
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Jakarta
+    command: sh -c "npm install && npm start"
